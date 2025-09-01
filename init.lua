@@ -234,6 +234,7 @@ end
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
 
+
 -- [[ Configure and install plugins ]]
 --
 --  To check the current status of your plugins, run
@@ -461,20 +462,24 @@ require('lazy').setup({
       end, { desc = '[S]earch [N]eovim files' })
     end,
   },
-
-  -- LSP Plugins
   {
-    -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
-    -- used for completion, annotations and signatures of Neovim apis
-    'folke/lazydev.nvim',
-    ft = 'lua',
-    opts = {
-      library = {
-        -- Load luvit types when the `vim.uv` word is found
-        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
-      },
-    },
+    'mrcjkb/rustaceanvim',
+    version = '6.7.0', -- Recommended
+    lazy = false, -- This plugin is already lazy
   },
+  -- LSP Plugins
+  --{
+  -- `lazydev` configures Lua LSP for your Neovim config, runtime and plugins
+  -- used for completion, annotations and signatures of Neovim apis
+  --'folke/lazydev.nvim',
+  --ft = 'lua',
+  --opts = {
+  --library = {
+  ---- Load luvit types when the `vim.uv` word is found
+  --{ path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+  --},
+  --},
+  --},
   {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
@@ -875,28 +880,29 @@ require('lazy').setup({
       signature = { enabled = true },
     },
   },
-
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'folke/tokyonight.nvim',
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
-
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
-    end,
+  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 
   },
+  --{ -- You can easily change to a different colorscheme.
+  -- Change the name of the colorscheme plugin below, and then
+  -- change the command in the config to whatever the name of that colorscheme is.
+  --
+  -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --'folke/tokyonight.nvim',
+  --priority = 1000, -- Make sure to load this before all the other start plugins.
+  --config = function()
+  ---@diagnostic disable-next-line: missing-fields
+  -- require('tokyonight').setup {
+  -- styles = {
+  -- comments = { italic = false }, -- Disable italics in comments
+  -- },
+  --}
+
+  -- Load the colorscheme here.
+  -- Like many other themes, this one has different styles, and you could load
+  -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --breakvim.cmd.colorscheme 'catpuccin'
+  --end,
+  --},
 
   -- Highlight todo, notes, etc in comments
   { 'folke/todo-comments.nvim', event = 'VimEnter', dependencies = { 'nvim-lua/plenary.nvim' }, opts = { signs = false } },
@@ -1011,6 +1017,15 @@ require('lazy').setup({
     },
   },
 })
+
+
+
+require("catppuccin").setup({
+    flavour = "frappe", -- latte, frappe, macchiato, mocha
+})
+
+vim.cmd.colorscheme 'catppuccin'
+
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
